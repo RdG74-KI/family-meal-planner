@@ -1,9 +1,15 @@
 {
-  "name": "RdG@74 Family Fit Planner",
+  "name": "RdG@74 Family Fit",
   "short_name": "Family Fit",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0e1114",
   "theme_color": "#0e1114",
-  "description": "RdG@74 Wochenplaner für Rezepte, Einkauf und Budget"
+  "description": "Gemeinsamer Familienplaner für Rezepte, Einkauf, Budget und Vorlieben",
+  "orientation": "any",
+  "scope": "./",
+  "categories": [
+    "food",
+    "lifestyle"
+  ]
 }
