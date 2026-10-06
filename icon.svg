@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="96" fill="#0e1114"/><circle cx="256" cy="256" r="190" fill="none" stroke="#e5bf55" stroke-width="18"/><text x="256" y="235" text-anchor="middle" font-family="Arial,sans-serif" font-size="92" font-weight="700" fill="#e5bf55">RdG</text><text x="256" y="325" text-anchor="middle" font-family="Arial,sans-serif" font-size="76" font-weight="700" fill="#fff">@74</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff0a6"/><stop offset=".35" stop-color="#e9b83f"/><stop offset="1" stop-color="#9a6412"/></linearGradient><linearGradient id="v" x1="0" x2="1"><stop stop-color="#b9ff20"/><stop offset="1" stop-color="#3f9f00"/></linearGradient></defs>
+<rect width="512" height="512" rx="92" fill="#090b0c"/><rect x="8" y="8" width="496" height="496" rx="84" fill="none" stroke="#3d4144" stroke-width="3"/>
+<path d="M108 221 256 91l148 130v111H108Z" fill="none" stroke="url(#g)" stroke-width="18" stroke-linejoin="round"/><path d="M380 143q42-66 79-57-4 49-66 78M405 174q45-52 77-34-15 43-70 51" fill="url(#v)"/>
+<circle cx="201" cy="213" r="26" fill="#ffe7a0"/><circle cx="311" cy="213" r="26" fill="#ffe7a0"/><circle cx="225" cy="278" r="20" fill="#f4c75d"/><circle cx="278" cy="278" r="20" fill="#f4c75d"/><circle cx="253" cy="318" r="16" fill="#f4c75d"/>
+<path d="M168 273q32-39 65 0M279 273q32-39 65 0M201 326q24-32 48 0M257 326q24-32 48 0" fill="none" stroke="#ffe7a0" stroke-width="18" stroke-linecap="round"/>
+<path d="M256 151c-22-30-62 2 0 49 62-47 22-79 0-49Z" fill="url(#g)"/>
+<path d="M76 363q83-42 178-5 92 36 182-4" fill="none" stroke="url(#g)" stroke-width="17" stroke-linecap="round"/><path d="M80 376q87-26 175-2 90 24 175-5" fill="none" stroke="url(#v)" stroke-width="7" stroke-linecap="round"/>
+<g transform="translate(65 309)"><circle cx="0" cy="0" r="27" fill="#8dd315"/><path d="M0-27 8-43" stroke="#5c8f10" stroke-width="6"/><circle cx="44" cy="12" r="23" fill="#e9472e"/><path d="m44-11 7-10 6 11" fill="#4e9f17"/></g>
+<g transform="translate(385 308)" stroke="url(#g)" stroke-width="11" fill="#111"><rect x="-7" y="-42" width="14" height="84" rx="7"/><rect x="-43" y="-24" width="30" height="48" rx="8"/><rect x="13" y="-24" width="30" height="48" rx="8"/></g>
+<text x="38" y="72" font-family="Arial,sans-serif" font-size="42" font-weight="800" font-style="italic" fill="url(#g)">RdG@74</text>
+<text x="256" y="434" text-anchor="middle" font-family="Arial,sans-serif" font-size="52" font-weight="900" fill="#fff">FAMILY <tspan fill="url(#g)">FIT</tspan></text><text x="256" y="469" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="9" fill="#f4f1e9">PLANNER</text>
+</svg>
