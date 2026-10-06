@@ -139,4 +139,18 @@ let avgP=week.length?Math.round(week.reduce((s,m)=>s+m.p,0)/week.length):0,avgK=
 document.getElementById('stats').innerHTML='<div class="stat"><b>'+pp+'</b><br>Personen</div><div class="stat"><b>'+avgP+' g</b><br>Ø Protein</div><div class="stat"><b>'+avgK+'</b><br>Ø kcal</div><div class="stat"><b>CHF '+mealCost.toFixed(2)+'</b><br>Abendessen</div><div class="stat"><b>CHF '+snackCost.toFixed(2)+'</b><br>Snacks</div><div class="stat"><b>'+(total<=budget?'🟢 Im Budget':'🔴 Über Budget')+'</b></div>';
 localStorage.setItem('weekV2',JSON.stringify(week))}
 window.onload=()=>{Object.keys(defaults).forEach(k=>document.getElementById(k).value=localStorage.getItem(k)||defaults[k]);document.getElementById('stock').value=localStorage.getItem('stock')||'';try{week=JSON.parse(localStorage.getItem('weekV2')||'[]')}catch{}renderOwn();let savedTotal=week.reduce((s,m)=>s+m.price*scale(),0)+snackDefs.filter(s=>activeSnacks.includes(s.id)).reduce((a,s)=>a+s.price*scale(),0),lim=+(localStorage.getItem('budget')||100);if(week.length!==7||week.some(m=>!allowed(m))||savedTotal>lim+.001)generate();else render()}
+</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const CLOUD_URL='https://wpygjfwteovoilirmulm.supabase.co';
+const CLOUD_KEY='sb_publishable_TFL10c9qlg4mysKeIXLhSA_bdTUPqfm';
+const CLOUD_FAMILY='rdg74-family-fit';
+const cloud=window.supabase.createClient(CLOUD_URL,CLOUD_KEY);
+const SYNC_KEYS=['persons','budget','nogos','optional','likes','spices','customTreats','customIngredients','customMeals','snacks','shoppingDone'];
+let cloudApplying=false,cloudTimer=null;
+function collectCloudState(){let o={};SYNC_KEYS.forEach(k=>{let v=localStorage.getItem(k);if(v!==null)o[k]=v});return o}
+async function pushCloud(){if(cloudApplying)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(async()=>{let state=collectCloudState();let {error}=await cloud.from('family_state').upsert({family_key:CLOUD_FAMILY,state,updated_at:new Date().toISOString()});setCloudStatus(error?'☁️ Sync-Fehler':'☁️ Synchronisiert')},500)}
+async function pullCloud(){let {data,error}=await cloud.from('family_state').select('state').eq('family_key',CLOUD_FAMILY).single();if(error){setCloudStatus('☁️ Sync-Fehler');return}let s=data&&data.state||{};if(Object.keys(s).length){cloudApplying=true;Object.entries(s).forEach(([k,v])=>localStorage.setItem(k,v));cloudApplying=false;location.reload()}else await pushCloud()}
+function setCloudStatus(t){let e=document.getElementById('cloudStatus');if(e)e.textContent=t}
+const _setItem=localStorage.setItem.bind(localStorage);localStorage.setItem=function(k,v){_setItem(k,v);if(SYNC_KEYS.includes(k))pushCloud()};
+window.addEventListener('load',()=>{setCloudStatus('☁️ Verbinde…');pullCloud();cloud.channel('family-fit-live').on('postgres_changes',{event:'UPDATE',schema:'public',table:'family_state',filter:'family_key=eq.'+CLOUD_FAMILY},payload=>{let s=payload.new.state||{};cloudApplying=true;Object.entries(s).forEach(([k,v])=>_setItem(k,v));cloudApplying=false;setCloudStatus('☁️ Live aktualisiert');setTimeout(()=>location.reload(),300)}).subscribe()});
 </script></body></html>
