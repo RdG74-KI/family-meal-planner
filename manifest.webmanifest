@@ -11,5 +11,30 @@
   "categories": [
     "food",
     "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "id": "./",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
+  "shortcuts": [
+    {
+      "name": "Wochenplan",
+      "short_name": "Plan",
+      "url": "./#plan"
+    },
+    {
+      "name": "Einkaufsliste",
+      "short_name": "Einkauf",
+      "url": "./#shopping"
+    }
   ]
 }
