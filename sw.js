@@ -1,5 +1,5 @@
-const CACHE='family-fit-v9-images-mix-fix';
-const ASSETS=['./manifest.webmanifest','./icon.svg?v=2'];
+const CACHE='family-fit-v10-release-hardening';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg?v=2'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
