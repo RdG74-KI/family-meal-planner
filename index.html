@@ -67,7 +67,38 @@ button:hover{transform:translateY(-1px);box-shadow:0 0 22px rgba(0,242,254,.34),
 input,select,textarea{border-color:rgba(0,242,254,.22)!important;outline:none}input:focus,select:focus,textarea:focus{border-color:rgba(0,242,254,.72)!important;box-shadow:0 0 0 3px rgba(0,242,254,.1),0 0 18px rgba(0,242,254,.12)}
 .countingNumber{display:inline-block;will-change:contents,transform;text-shadow:0 0 8px rgba(0,242,254,.7),0 0 18px rgba(168,85,247,.3)}
 @media(prefers-reduced-motion:reduce){.countingNumber{transition:none}}
-</style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#070a12"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./icon.svg"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="application-name" content="Family Fit"></head><body><main class="wrap"><header class="top"><div class="brand brandWithLogo"><img class="webAppLogo" src="./icon.svg?v=2" alt="RdG@74 Family Fit Planner Logo"><div><h1>Family Fit Planner</h1><p>Normales Familienessen. Clever geplant. Proteinreich & budgetbewusst.</p></div></div><div class="budget"><small>WOCHENBUDGET</small><br><strong id="total"></strong></div></header><div class="cosmicTelemetry"><span class="teleChip">● FAMILY SYNC</span><span class="teleChip cyan" id="weekTelemetry">📅 WOCHENPLAN</span><span class="teleChip violet">RDG@74 · FAMILY FIT</span></div>
+</style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#070a12"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./icon.svg"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="application-name" content="Family Fit"><style id="darkCosmicHorrorTheme">
+:root{--horror-black:#050609;--horror-panel:#080d16;--horror-red:#e21b2d;--horror-darkred:#630914;--horror-blue:#087ee8;--horror-cosmic:#18bfff;--horror-gold:#ffc928}
+html{background:#030407}
+body{color:#f5f7fb!important;background:
+radial-gradient(circle at 78% 4%,rgba(8,126,232,.18),transparent 28%),
+radial-gradient(circle at 12% 28%,rgba(226,27,45,.16),transparent 25%),
+radial-gradient(circle at 82% 82%,rgba(99,9,20,.20),transparent 30%),
+linear-gradient(155deg,#020305 0%,#07101c 47%,#090407 72%,#020305 100%)!important;background-attachment:fixed!important}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:
+linear-gradient(115deg,transparent 0 48%,rgba(24,191,255,.035) 49%,transparent 50%),
+radial-gradient(circle at 20% 90%,rgba(255,40,20,.12),transparent 18%);
+filter:saturate(1.25)}
+.wrap,.appShell{position:relative;z-index:1}
+.card,.panel,.day,.meal,.stat,.hero,.budgetCard,.quickCard,.scannerCard,.recipeCard,.shoppingCard,.profileCard{background:linear-gradient(145deg,rgba(7,11,18,.96),rgba(5,8,13,.90))!important;border:1px solid rgba(24,191,255,.34)!important;box-shadow:0 0 0 1px rgba(226,27,45,.08),0 12px 34px rgba(0,0,0,.48),inset 0 0 28px rgba(4,45,85,.12)!important}
+h1,h2,h3,.title{color:#f8f9fd!important;text-shadow:0 0 18px rgba(24,191,255,.16)}
+button,.btn{border-color:rgba(24,191,255,.62)!important;background:linear-gradient(135deg,#071321,#09213a)!important;color:#f7fbff!important;box-shadow:0 0 15px rgba(24,191,255,.16)!important}
+button:hover,.btn:hover{border-color:#18bfff!important;box-shadow:0 0 20px rgba(24,191,255,.34)!important}
+button.primary,.primary,.navItem.active,.bottomNav button.active,[aria-current="page"]{background:linear-gradient(135deg,#5c0712,#e21b2d)!important;border-color:#ff3a49!important;box-shadow:0 0 18px rgba(226,27,45,.42)!important;color:white!important}
+.badge,.pill,.chip{background:rgba(7,15,25,.9)!important;border-color:rgba(24,191,255,.45)!important}
+.good,.success{color:#69f0c4!important}
+.warn,.warning{color:#ffc928!important}
+input,select,textarea{background:#05090f!important;color:#f7f9fd!important;border-color:rgba(24,191,255,.38)!important}
+input:focus,select:focus,textarea:focus{border-color:#18bfff!important;box-shadow:0 0 0 2px rgba(24,191,255,.12),0 0 18px rgba(24,191,255,.14)!important}
+.bottomNav,.sideNav,nav{background:linear-gradient(180deg,rgba(4,7,12,.98),rgba(3,5,9,.98))!important;border-color:rgba(226,27,45,.26)!important;box-shadow:0 -8px 28px rgba(0,0,0,.55),0 0 18px rgba(24,191,255,.08)!important}
+.progress>*,.progressBar>*{background:linear-gradient(90deg,#8d0b19,#ff263b,#ffc928)!important}
+a{color:#3fc9ff}
+::selection{background:#9b1020;color:white}
+@media(max-width:700px){body{background:
+radial-gradient(circle at 90% 5%,rgba(8,126,232,.16),transparent 25%),
+radial-gradient(circle at 5% 55%,rgba(226,27,45,.14),transparent 28%),
+linear-gradient(160deg,#020305,#07101a 52%,#090407)!important}}
+</style></head><body><main class="wrap"><header class="top"><div class="brand brandWithLogo"><img class="webAppLogo" src="./icon.svg?v=2" alt="RdG@74 Family Fit Planner Logo"><div><h1>Family Fit Planner</h1><p>Normales Familienessen. Clever geplant. Proteinreich & budgetbewusst.</p></div></div><div class="budget"><small>WOCHENBUDGET</small><br><strong id="total"></strong></div></header><div class="cosmicTelemetry"><span class="teleChip">● FAMILY SYNC</span><span class="teleChip cyan" id="weekTelemetry">📅 WOCHENPLAN</span><span class="teleChip violet">RDG@74 · FAMILY FIT</span></div>
 <nav class="appNav" aria-label="Hauptnavigation"><button data-view="home" onclick="showView('home')">🏠<small>Home</small></button><button data-view="week" onclick="showView('week')">📅<small>Woche</small></button><button data-view="shopping" onclick="showView('shopping')">🛒<small>Einkauf</small></button><button data-view="recipes" onclick="showView('recipes')">🍳<small>Rezepte</small></button><button data-view="more" onclick="showView('more')">•••<small>Mehr</small></button></nav><section id="view-home" class="appView active"><div class="homeHero"><div><section class="panel familyPanel"><h2>👨‍👩‍👧‍👦 Unsere Familie</h2><div class="familyGrid">
 <button class="member admin" data-member="Rocco" onclick="selectMember('Rocco')"><span class="memberAvatar" data-avatar="Rocco">👨</span><b class="memberName">Rocco</b><small>Vater · Admin</small></button>
 <button class="member admin" data-member="Nadine" onclick="selectMember('Nadine')"><span class="memberAvatar" data-avatar="Nadine">👩</span><b class="memberName">Nadine</b><small>Mutter · Admin</small></button>
