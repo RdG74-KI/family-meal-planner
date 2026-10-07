@@ -127,7 +127,7 @@ async function lookupBarcode(raw){
  let code=String(raw||'').replace(/\D/g,''),status=document.getElementById('scanStatus'),box=document.getElementById('scanResult');if(code.length<7||code.length>14){status.textContent='⚠️ Bitte einen gültigen EAN/UPC-Barcode eingeben.';return}
  status.textContent='🌍 Barcode '+code+' wird über Family Fit weltweit gesucht …';box.classList.remove('show');
  let cached={};try{cached=JSON.parse(localStorage.getItem('barcodeProductCache')||'{}')}catch(e){}
- if(cached[code]){scannedProduct=cached[code];status.textContent='✓ Produkt aus Family-Fit-Datenbank erkannt';renderScannedProduct();return}
+ if(cached[code]&&cached[code].name&&!String(cached[code].name).startsWith('Barcode ')&&cached[code].name!=='Unbekanntes Produkt'){scannedProduct=cached[code];status.textContent='✓ Produkt aus Family-Fit-Datenbank erkannt';renderScannedProduct();return}else if(cached[code]){delete cached[code];localStorage.setItem('barcodeProductCache',JSON.stringify(cached))}
  try{
   const {data,error}=await cloud.functions.invoke('barcode-lookup',{body:{code}});
   if(error){let msg=error.message||String(error);status.textContent='❌ Produktsuche fehlgeschlagen: '+msg;scannedProduct={code,name:'Barcode '+code,brand:'',quantity:'',image:'',protein:null,kcal:null,nutri:'',source:''};renderScannedProduct();return}
