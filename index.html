@@ -332,7 +332,21 @@ const mealImages={
 'Rindshack-Reis-Pfanne':'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80',
 'Poulet-Schnitzel aus dem Airfryer':'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80'
 };
-function mealImage(m){return m.image||mealImages[m.name]||'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80'}
+const fallbackMealImages=[
+'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=80',
+'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80'
+];
+function mealImage(m){if(m.image)return m.image;if(mealImages[m.name])return mealImages[m.name];let h=0,s=String(m.name||'');for(let i=0;i<s.length;i++)h=((h<<5)-h+s.charCodeAt(i))|0;return fallbackMealImages[Math.abs(h)%fallbackMealImages.length]}
 const recipeData={
 'Airfryer Poulet & Kartoffeln':['Poulet in mundgerechte Stücke schneiden und würzen.','Kartoffeln in Spalten schneiden, leicht ölen und würzen.','Kartoffeln im Airfryer bei 190 °C ca. 20–25 Min. garen; zwischendurch schütteln.','Poulet separat bei 190 °C ca. 12–16 Min. vollständig durchgaren.','Gemüse garen und alles mit Joghurt-Dip servieren.'],
 'Poulet-Gemüse-Reis Bowl':['Reis nach Packungsangabe kochen.','Poulet würzen und in einer beschichteten Pfanne vollständig durchbraten.','Gemüse bissfest garen.','Skyr mit Kräutern, Salz und etwas Zitronensaft zum Dip verrühren.','Reis, Gemüse und Poulet als Bowls anrichten.'],
@@ -355,7 +369,7 @@ function scaleIngredient(x,s){return x.replace(/(\d+(?:[.,]\d+)?)\s*(kg|g|Eier)/
 function people(){return Math.max(1,Math.min(10,+(localStorage.getItem('persons')||6)))}
 function scale(){return people()/6}
 function mealTarget(){return +(localStorage.getItem('budget')||100)-snackDefs.filter(s=>activeSnacks.includes(s.id)).reduce((a,s)=>a+s.price*scale(),0)-customTreats.reduce((a,s)=>a+s.price,0)}
-function pickBudget(pool){let target=mealTarget(),s=scale();if(pool.length<7)return{x:null,cost:-1,min:Infinity};let cheapest=[...pool].sort((a,b)=>a.price-b.price).slice(0,7),min=cheapest.reduce((sum,m)=>sum+m.price*s,0);if(min>target+.001)return{x:null,cost:-1,min};let best=cheapest,bestCost=min;for(let attempt=0;attempt<120;attempt++){let candidate=shuffled(pool).slice(0,7),cost=candidate.reduce((sum,m)=>sum+m.price*s,0);if(cost<=target+.001&&cost>bestCost){best=candidate;bestCost=cost}}return{x:shuffled(best),cost:bestCost,min}}
+function pickBudget(pool){let target=mealTarget(),s=scale();if(pool.length<7)return{x:null,cost:-1,min:Infinity};let cheapest=[...pool].sort((a,b)=>a.price-b.price).slice(0,7),min=cheapest.reduce((sum,m)=>sum+m.price*s,0);if(min>target+.001)return{x:null,cost:-1,min};let previous=new Set((week||[]).map(m=>m.name)),candidates=[];for(let attempt=0;attempt<180;attempt++){let candidate=shuffled(pool).slice(0,7),cost=candidate.reduce((sum,m)=>sum+m.price*s,0);if(cost<=target+.001){let overlap=candidate.reduce((n,m)=>n+(previous.has(m.name)?1:0),0);candidates.push({candidate,cost,overlap})}}if(!candidates.length)return{x:shuffled(cheapest),cost:min,min};candidates.sort((a,b)=>a.overlap-b.overlap||Math.random()-.5);let top=candidates.slice(0,Math.min(18,candidates.length)),chosen=top[Math.floor(Math.random()*top.length)];return{x:shuffled(chosen.candidate),cost:chosen.cost,min}}
 
 const snackDefs=[
 {id:'skyr',name:'Skyr',desc:'Protein-Snack / Dessert',price:4.5},
