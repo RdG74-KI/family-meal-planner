@@ -68,25 +68,58 @@ input,select,textarea{border-color:rgba(0,242,254,.22)!important;outline:none}in
 .countingNumber{display:inline-block;will-change:contents,transform;text-shadow:0 0 8px rgba(0,242,254,.7),0 0 18px rgba(168,85,247,.3)}
 @media(prefers-reduced-motion:reduce){.countingNumber{transition:none}}
 </style><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#070a12"><meta name="mobile-web-app-capable" content="yes"><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./icon.svg"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="application-name" content="Family Fit"><style id="umbrellaBiohazardEdition">
-:root{--ub-bg:#07080b;--ub-surface:#0f1017;--ub-card:rgba(18,19,29,.88);--ub-red:#e11d48;--ub-red2:#ff1744;--ub-blue:#0284c7;--ub-cyan:#00f2fe;--ub-yellow:#ffd43b}
-@keyframes ubPulse{0%,100%{filter:drop-shadow(0 0 6px rgba(225,29,72,.8)) drop-shadow(0 0 12px rgba(2,132,199,.4))}50%{filter:drop-shadow(0 0 14px #ff1744) drop-shadow(0 0 22px rgba(0,242,254,.65))}}
-@keyframes ubSweep{0%{background-position:-220px 0}100%{background-position:220px 0}}
-@keyframes ubGlow{0%,100%{box-shadow:0 0 10px rgba(225,29,72,.22)}50%{box-shadow:0 0 24px rgba(225,29,72,.55),0 0 12px rgba(0,242,254,.22)}}
-html,body{background-color:var(--ub-bg)!important;color:#f1f5f9!important}
-body{background-image:radial-gradient(circle at 15% 5%,rgba(225,29,72,.15),transparent 45%),radial-gradient(circle at 85% 35%,rgba(2,132,199,.12),transparent 45%),radial-gradient(circle at 50% 90%,rgba(225,29,72,.10),transparent 55%)!important;background-attachment:fixed!important}
-body .top,body .panel,body .homeHero,body .familyPanel,body .member,body .stat,body .hudMetric,body .teleChip,body .snack{background:linear-gradient(145deg,rgba(15,16,23,.96),rgba(8,10,16,.94))!important;border:1px solid rgba(255,255,255,.08)!important;box-shadow:0 12px 34px rgba(0,0,0,.42),inset 0 0 26px rgba(2,132,199,.035)!important;backdrop-filter:blur(16px)}
-body .homeHero,body .familyPanel{border-top-color:rgba(225,29,72,.48)!important}
-body .appNav{background:linear-gradient(180deg,#090a10,#05060a)!important;border:1px solid rgba(225,29,72,.28)!important;box-shadow:0 0 28px rgba(0,0,0,.6)!important}
-body .appNav button.active,body button.primary{background:linear-gradient(135deg,#710c25,var(--ub-red))!important;border-color:var(--ub-red2)!important;color:#fff!important;animation:ubGlow 2.8s ease-in-out infinite}
-body button,body .secondary{background:linear-gradient(135deg,#09121e,#08213a)!important;border-color:rgba(0,242,254,.46)!important;color:#f7fbff!important}
-body button:hover{border-color:var(--ub-cyan)!important;box-shadow:0 0 18px rgba(0,242,254,.25)!important}
-body input,body select,body textarea{background:#080b12!important;color:#f8fafc!important;border-color:rgba(2,132,199,.48)!important}
-body h1,body h2,body h3,body .brand,body .sectionHead{text-shadow:0 0 14px rgba(0,242,254,.20)!important}
-body .brandWithLogo,body .webAppLogo{animation:ubPulse 3s ease-in-out infinite}
-body .budget,body .danger{border-color:rgba(225,29,72,.65)!important}
-body .teleChip:nth-child(3n),body .stat:nth-child(3n){border-color:rgba(255,212,59,.45)!important}
-body progress,body .progress{filter:drop-shadow(0 0 8px rgba(0,242,254,.45))}
-body .homeHero:after{content:"";display:block;height:3px;margin-top:10px;background:linear-gradient(90deg,transparent,var(--ub-red2),var(--ub-cyan),transparent);background-size:220px 100%;animation:ubSweep 2.2s linear infinite;opacity:.75}
+:root{--u0:#050609;--u1:#0b0d12;--u2:#11141b;--ur:#e11d48;--ur2:#ff1744;--ub:#087fbd;--uc:#00d9f5;--uy:#ffd43b}
+@keyframes uPulse{0%,100%{box-shadow:0 0 10px rgba(225,29,72,.16)}50%{box-shadow:0 0 24px rgba(225,29,72,.38),0 0 10px rgba(0,217,245,.16)}}
+@keyframes uLogo{0%,100%{filter:drop-shadow(0 0 5px rgba(225,29,72,.65))}50%{filter:drop-shadow(0 0 13px rgba(255,23,68,.95)) drop-shadow(0 0 8px rgba(0,217,245,.38))}}
+@keyframes uScan{0%{background-position:-240px 0}100%{background-position:240px 0}}
+html,body{background:#050609!important;color:#f3f6fa!important}
+body{background-image:radial-gradient(circle at 8% 4%,rgba(225,29,72,.13),transparent 30%),radial-gradient(circle at 92% 30%,rgba(0,145,220,.10),transparent 32%),linear-gradient(160deg,#050609,#080a0f 55%,#050609)!important;background-attachment:fixed!important}
+body .wrap{max-width:1320px!important}
+body .top,body .panel,body .homeHero,body .familyPanel,body .member,body .stat,body .hudMetric,body .teleChip,body .snack{background:linear-gradient(145deg,rgba(15,17,23,.98),rgba(8,10,15,.97))!important;border:1px solid #252a33!important;box-shadow:0 10px 28px rgba(0,0,0,.42)!important}
+body .panel,body .homeHero,body .familyPanel{position:relative;overflow:hidden}
+body .panel:before,body .homeHero:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--ur),transparent 38%,transparent 62%,var(--uc));opacity:.8;pointer-events:none}
+body .top{border-color:rgba(225,29,72,.38)!important}
+body .webAppLogo{animation:uLogo 3s ease-in-out infinite}
+body .brand h1{color:#fff!important;text-shadow:0 0 12px rgba(225,29,72,.22)!important}
+body .budget{background:#090b10!important;border:1px solid rgba(225,29,72,.48)!important;box-shadow:inset 3px 0 0 var(--ur)!important}
+body .appNav{background:rgba(7,8,12,.98)!important;border:1px solid #252a33!important;box-shadow:0 8px 30px rgba(0,0,0,.65)!important}
+body .appNav button{background:transparent!important;color:#aeb7c2!important;border:1px solid transparent!important;box-shadow:none!important}
+body .appNav button.active{background:linear-gradient(145deg,#5c0a1d,#b31335)!important;color:#fff!important;border-color:var(--ur2)!important;box-shadow:0 0 18px rgba(225,29,72,.35)!important}
+body .quickGrid button{min-height:78px!important;border-radius:8px!important;background:linear-gradient(145deg,#11151c,#090b10)!important;border:1px solid #303641!important;color:#f5f7fa!important;font-weight:800!important;letter-spacing:.02em!important;box-shadow:inset 3px 0 0 var(--ur)!important;animation:none!important}
+body .quickGrid button:nth-child(even){box-shadow:inset 3px 0 0 var(--uc)!important}
+body .quickGrid button:hover,body .quickGrid button:active{border-color:var(--ur)!important;animation:uPulse 1.8s ease-in-out infinite!important}
+body button{border-radius:8px!important}
+body button.primary{background:linear-gradient(135deg,#790d27,var(--ur))!important;border-color:var(--ur2)!important;color:#fff!important}
+body .secondary{background:#0b1721!important;border-color:rgba(0,217,245,.40)!important;color:#eefcff!important}
+body input,body select,body textarea{background:#090b10!important;color:#fff!important;border:1px solid #323946!important}
+body .reactorRing{border-color:var(--ur)!important;animation:uPulse 3s ease-in-out infinite!important}
+body .sectionHead{border-left:3px solid var(--ur);padding-left:10px}
+body .teleChip{border-radius:5px!important;background:#090c12!important}
+body .teleChip:nth-child(2){border-color:rgba(0,217,245,.42)!important}
+body .teleChip:nth-child(3){border-color:rgba(255,212,59,.38)!important}
+body .scannerViewport{border-color:rgba(225,29,72,.48)!important}
+body .homeHero:after{content:"";display:block;height:2px;margin-top:10px;background:linear-gradient(90deg,transparent,var(--ur2),var(--uc),transparent);background-size:240px 100%;animation:uScan 2.4s linear infinite;opacity:.7}
+@media(max-width:700px){
+ body{padding:0 7px 82px!important;background-attachment:scroll!important}
+ body .wrap{padding:8px 2px!important}
+ body .top{padding:10px!important;border-radius:10px!important}
+ body .webAppLogo{width:52px!important;height:52px!important;border-radius:10px!important}
+ body .brandWithLogo h1{font-size:20px!important}
+ body .budget{width:100%!important;margin-top:7px!important}
+ body .cosmicTelemetry{gap:5px!important;overflow-x:auto!important;flex-wrap:nowrap!important}
+ body .teleChip{white-space:nowrap!important;font-size:9px!important;padding:6px 8px!important}
+ body .homeHero{display:block!important;background:transparent!important;border:0!important;box-shadow:none!important}
+ body .homeHero:before,body .homeHero:after{display:none!important}
+ body .familyPanel,body .panel{border-radius:10px!important;margin-bottom:10px!important}
+ body .familyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+ body .member{min-width:0!important;border-radius:8px!important;padding:9px 5px!important}
+ body .quickGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+ body .quickGrid button{min-height:66px!important;padding:8px 5px!important;font-size:12px!important}
+ body .appNav{left:7px!important;right:7px!important;bottom:7px!important;padding:5px!important;border-radius:11px!important;gap:2px!important}
+ body .appNav button{font-size:18px!important;padding:6px 2px!important;border-radius:7px!important}
+ body .appNav small{font-size:9px!important}
+ body .cols,body .grid{grid-template-columns:1fr!important}
+}
 </style></head><body><main class="wrap"><header class="top"><div class="brand brandWithLogo"><img class="webAppLogo" src="./icon.svg?v=2" alt="RdG@74 Family Fit Planner Logo"><div><h1>Family Fit Planner</h1><p>Normales Familienessen. Clever geplant. Proteinreich & budgetbewusst.</p></div></div><div class="budget"><small>WOCHENBUDGET</small><br><strong id="total"></strong></div></header><div class="cosmicTelemetry"><span class="teleChip">● FAMILY SYNC</span><span class="teleChip cyan" id="weekTelemetry">📅 WOCHENPLAN</span><span class="teleChip violet">RDG@74 · FAMILY FIT</span></div>
 <nav class="appNav" aria-label="Hauptnavigation"><button data-view="home" onclick="showView('home')">🏠<small>Home</small></button><button data-view="week" onclick="showView('week')">📅<small>Woche</small></button><button data-view="shopping" onclick="showView('shopping')">🛒<small>Einkauf</small></button><button data-view="recipes" onclick="showView('recipes')">🍳<small>Rezepte</small></button><button data-view="more" onclick="showView('more')">•••<small>Mehr</small></button></nav><section id="view-home" class="appView active"><div class="homeHero"><div><section class="panel familyPanel"><h2>👨‍👩‍👧‍👦 Unsere Familie</h2><div class="familyGrid">
 <button class="member admin" data-member="Rocco" onclick="selectMember('Rocco')"><span class="memberAvatar" data-avatar="Rocco">👨</span><b class="memberName">Rocco</b><small>Vater · Admin</small></button>
