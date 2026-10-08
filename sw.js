@@ -1,5 +1,5 @@
-const CACHE='family-fit-v32-direct-upload';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./recipe-video-import.js?v=7','./icon.svg?v=2','./Nasses%20Sci-Fi-Labor%20mit%20Zentralkammer.png','./Labor.png.png'];
+const CACHE='family-fit-v33-visible-social-upload';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./recipe-video-import.js?v=8','./icon.svg?v=2','./Nasses%20Sci-Fi-Labor%20mit%20Zentralkammer.png','./Labor.png.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
