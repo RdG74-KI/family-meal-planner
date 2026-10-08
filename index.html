@@ -150,6 +150,22 @@ input,select,textarea{border-radius:0!important;background:#05080c!important;bor
 @media(max-width:700px){.panel,.budget,.day,.snack,.deal,.item{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.hyperParticles{display:none!important}.day.arrive{animation-duration:.28s!important}.mealPhoto img,.recipeCardImage{transform:translateZ(0)}}
 .recipeCardImage{aspect-ratio:16/9;height:auto!important;min-height:110px;background:#0b0f14}
 .recipeTools{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,220px);gap:9px;margin:12px 0}.recipeTools input,.recipeTools select{margin:0}.emptyRecipeState{grid-column:1/-1;padding:24px;text-align:center;border:1px dashed #35414d;color:#9aa8b5;background:#080c11}@media(max-width:600px){.recipeTools{grid-template-columns:1fr}.recipeTools select{width:100%}}
+</style><style id="reControlTheme">
+:root{--re-red:#b71934;--re-blue:#367da8;--re-ink:#080b10;--re-panel:#101721;--re-line:#334353}
+body{background:radial-gradient(ellipse at 15% 0%,#251019 0%,transparent 40%),radial-gradient(ellipse at 90% 20%,#10273b 0%,transparent 43%),#080b10!important;color:#e9edf3!important}
+body .panel,body .homeHero,body .familyPanel,body .day,body .recipeCard,body .snack{border:1px solid #34404e!important;background:linear-gradient(145deg,#151b25,#0b1017)!important;border-radius:9px!important;box-shadow:0 12px 28px #0006!important}
+body .top{background:linear-gradient(120deg,#1b1017,#101a27)!important;border:1px solid #723045!important}
+body .panel:before,body .homeHero:before{background:linear-gradient(90deg,#d32443,transparent 48%,#3686b5)!important}
+body button:not(.secondary):not(.recipeCard):not(.mealPhoto):not(.member):not(.ownOpen){border-radius:7px!important}
+body .appNav{background:#090e16f5!important;border:1px solid #34404e!important}
+body .appNav button.active{background:linear-gradient(120deg,#6b1528,#ac233c)!important;border-color:#dd3651!important;color:#fff!important}
+body .budget{border-left:3px solid #cf2947!important;background:#10151e!important}
+body .day h3,body .sectionHead h2{letter-spacing:.07em;text-transform:uppercase}
+body .recipeCard:hover,body .day:hover{border-color:#527c9c!important}
+body .recipeCardImage{filter:saturate(.88) contrast(1.06)}
+body input:focus-visible,body select:focus-visible,body button:focus-visible{outline:2px solid #70b4dd!important;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){body .webAppLogo{animation:none!important}}
+@media(max-width:700px){body .panel,body .day,body .recipeCard{box-shadow:0 5px 14px #0005!important}}
 </style></head><body><main class="wrap"><header class="top"><div class="brand brandWithLogo"><img class="webAppLogo" src="./icon.svg?v=2" alt="RdG@74 Family Fit Planner Logo"><div><h1>Family Fit Planner</h1><p>Normales Familienessen. Clever geplant. Proteinreich & budgetbewusst.</p></div></div><div class="budget"><small>WOCHENBUDGET</small><br><strong id="total"></strong></div></header><div class="cosmicTelemetry"><span class="teleChip">● FAMILY SYNC</span><span class="teleChip cyan" id="weekTelemetry">📅 WOCHENPLAN</span><span class="teleChip violet">RDG@74 · FAMILY FIT</span></div>
 <nav class="appNav" aria-label="Hauptnavigation"><button data-view="home" onclick="showView('home')">🏠<small>Home</small></button><button data-view="week" onclick="showView('week')">📅<small>Woche</small></button><button data-view="shopping" onclick="showView('shopping')">🛒<small>Einkauf</small></button><button data-view="recipes" onclick="showView('recipes')">🍳<small>Rezepte</small></button><button data-view="more" onclick="showView('more')">•••<small>Mehr</small></button></nav><section id="view-home" class="appView active"><div class="homeHero"><div><section class="panel familyPanel"><h2>👨‍👩‍👧‍👦 Unsere Familie</h2><div class="familyGrid">
 <button class="member admin" data-member="Rocco" onclick="selectMember('Rocco')"><span class="memberAvatar" data-avatar="Rocco">👨</span><b class="memberName">Rocco</b><small>Vater · Admin</small></button>
