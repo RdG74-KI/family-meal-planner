@@ -23,7 +23,7 @@ async function prepareMedia(file){
  try{
   await new Promise((resolve,reject)=>{video.onloadedmetadata=resolve;video.onerror=()=>reject(Error('Video konnte nicht gelesen werden.'))});
   if(!Number.isFinite(video.duration)||video.duration>360)throw Error('Videos über 6 Minuten werden noch nicht unterstützt.');
-  const stream=video.captureStream();
+  video.currentTime=0;await video.play();const stream=video.captureStream();
   if(!stream.getAudioTracks().length)throw Error('Die Tonspur kann auf diesem Gerät nicht ausgelesen werden.');
   let mime=['audio/webm;codecs=opus','audio/webm','video/webm'].find(x=>MediaRecorder.isTypeSupported(x));
   if(!mime)throw Error('Audiokompression wird von diesem Browser nicht unterstützt.');
@@ -31,7 +31,7 @@ async function prepareMedia(file){
   const chunks=[];
   recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
   const done=new Promise((resolve,reject)=>{recorder.onerror=()=>reject(Error('Tonaufnahme fehlgeschlagen.'));recorder.onstop=resolve});
-  video.currentTime=0;await video.play();recorder.start(1000);
+  recorder.start(1000);
   msg('🔊 Extrahiere Tonspur auf dem Handy – das Video wird dafür in Echtzeit abgespielt. Bitte geöffnet lassen.');
   await new Promise((resolve,reject)=>{video.onended=resolve;video.onerror=()=>reject(Error('Video konnte nicht abgespielt werden.'))});
   recorder.stop();await done;
