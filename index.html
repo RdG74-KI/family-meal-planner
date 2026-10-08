@@ -178,6 +178,22 @@ body.navOpen .appNav{transform:translateX(0)!important;visibility:visible!import
 body.navOpen #reNavShade{display:block}
 @media(min-width:1000px){body{padding-left:0!important}.appNav:not(.navOpen){top:0!important;left:0!important}}
 @media(prefers-reduced-motion:reduce){.appNav{transition:none!important}}
+</style><style id="reDesignPolish">
+/* Polished, readable laboratory dashboard */
+:root{color-scheme:dark}
+body{background-attachment:fixed!important}
+.appView{min-width:0}
+.appView.active{animation:reEnter .2s ease-out}
+@keyframes reEnter{from{opacity:.5;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.panel,.recipeCard,.day{transition:border-color .18s ease,box-shadow .18s ease}
+.panel:hover,.recipeCard:hover,.day:hover{border-color:#50677d!important}
+input,select,textarea{max-width:100%;box-sizing:border-box}
+button{touch-action:manipulation}
+#reNavToggle{min-width:46px;min-height:46px;font-size:20px!important}
+.appNav button.active{box-shadow:inset 3px 0 #f15b70!important}
+.appNav{box-shadow:18px 0 55px #000a!important}
+@media(max-width:700px){.appNav{width:min(290px,85vw)!important}.appNav button{min-height:58px!important}.recipeDetailCols{grid-template-columns:1fr!important}}
+@media(prefers-reduced-motion:reduce){.appView.active{animation:none!important}.panel,.recipeCard,.day{transition:none!important}}
 </style></head><body><main class="wrap"><header class="top"><div class="brand brandWithLogo"><img class="webAppLogo" src="./icon.svg?v=2" alt="RdG@74 Family Fit Planner Logo"><div><h1>Family Fit Planner</h1><p>Normales Familienessen. Clever geplant. Proteinreich & budgetbewusst.</p></div></div><div class="budget"><small>WOCHENBUDGET</small><br><strong id="total"></strong></div></header><div class="cosmicTelemetry"><span class="teleChip">● FAMILY SYNC</span><span class="teleChip cyan" id="weekTelemetry">📅 WOCHENPLAN</span><span class="teleChip violet">RDG@74 · FAMILY FIT</span></div>
 <button id="reNavToggle" type="button" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleReNav()">☰</button><div id="reNavShade" onclick="toggleReNav(false)"></div><nav class="appNav" aria-label="Hauptnavigation"><button data-view="home" onclick="showView('home')">🏠<small>Home</small></button><button data-view="week" onclick="showView('week')">📅<small>Woche</small></button><button data-view="shopping" onclick="showView('shopping')">🛒<small>Einkauf</small></button><button data-view="recipes" onclick="showView('recipes')">🍳<small>Rezepte</small></button><button data-view="more" onclick="showView('more')">•••<small>Mehr</small></button></nav><section id="view-home" class="appView active"><div class="homeHero"><div><section class="panel familyPanel"><h2>👨‍👩‍👧‍👦 Unsere Familie</h2><div class="familyGrid">
 <button class="member admin" data-member="Rocco" onclick="selectMember('Rocco')"><span class="memberAvatar" data-avatar="Rocco">👨</span><b class="memberName">Rocco</b><small>Vater · Admin</small></button>
