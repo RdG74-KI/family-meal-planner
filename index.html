@@ -250,6 +250,16 @@ body.navOpen .appNav button:nth-child(5){animation-delay:.14s}
 @keyframes reNavItem{from{opacity:0;transform:translateX(-13px)}to{opacity:1;transform:translateX(0)}}
 @media(max-width:700px){body::before{background-position:60% center;background-image:linear-gradient(rgba(2,6,11,.34),rgba(2,6,11,.48)),url("./Labor.png.png")}}
 @media(prefers-reduced-motion:reduce){body::before,body::after,body.navOpen .appNav button{animation:none!important}}
+</style><style id="reBackdropLayerFix">
+/* Real background layer above body paint but below application content. */
+html,body{background:#03060a!important}
+body{isolation:auto!important}
+body::before{z-index:0!important}
+body::after{z-index:0!important}
+body>.wrap{position:relative!important;z-index:1!important}
+body .appNav{z-index:110!important}
+body #reNavToggle{z-index:112!important}
+body #reNavShade{z-index:109!important}
 </style></head><body><main class="wrap"><header class="top"><div class="brand brandWithLogo"><img class="webAppLogo" src="./icon.svg?v=10" alt="RdG@74 Family Fit Planner Logo"><div><h1>Family Fit Planner</h1><p>Normales Familienessen. Clever geplant. Proteinreich & budgetbewusst.</p></div></div><div class="budget"><small>WOCHENBUDGET</small><br><strong id="total"></strong></div></header><div class="reStatusStrip"><span class="reMark">☣</span><span>RDG@74 // FAMILY FIT</span><span class="rePulse">● SYSTEM ONLINE · RECIPE ROTATION ACTIVE</span></div><div class="cosmicTelemetry"><span class="teleChip">● FAMILY SYNC</span><span class="teleChip cyan" id="weekTelemetry">📅 WOCHENPLAN</span><span class="teleChip violet">RDG@74 · FAMILY FIT</span></div>
 <button id="reNavToggle" type="button" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleReNav()">☰</button><div id="reNavShade" onclick="toggleReNav(false)"></div><nav class="appNav" aria-label="Hauptnavigation"><button data-view="home" onclick="showView('home')">🏠<small>Home</small></button><button data-view="week" onclick="showView('week')">📅<small>Woche</small></button><button data-view="shopping" onclick="showView('shopping')">🛒<small>Einkauf</small></button><button data-view="recipes" onclick="showView('recipes')">🍳<small>Rezepte</small></button><button data-view="more" onclick="showView('more')">•••<small>Mehr</small></button></nav><section id="view-home" class="appView active"><div class="homeHero"><div><section class="panel familyPanel"><h2>👨‍👩‍👧‍👦 Unsere Familie</h2><div class="familyGrid">
 <button class="member admin" data-member="Rocco" onclick="selectMember('Rocco')"><span class="memberAvatar" data-avatar="Rocco">👨</span><b class="memberName">Rocco</b><small>Vater · Admin</small></button>
