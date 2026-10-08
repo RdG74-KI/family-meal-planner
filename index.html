@@ -278,6 +278,17 @@ body:before,body:after,body::before,body::after{display:none!important;content:n
 body>.wrap{position:relative!important;z-index:1!important}
 @keyframes rePhotoPan{from{transform:scale(1.01) translateX(0)}to{transform:scale(1.055) translateX(-.6%)}}
 @media(prefers-reduced-motion:reduce){#rePhotoScene:before,#rePhotoScene:after{animation:none!important}}
+</style><style id="reLayoutRecovery">
+/* Remove the duplicated interface baked into the reference artwork. */
+#rePhotoScene{background:#050b12!important}
+#rePhotoScene:before{background:radial-gradient(ellipse at 50% 18%,#23435b 0%,#101d2c 30%,#080d16 67%,#05080d 100%)!important;animation:rePhotoPan 28s ease-in-out infinite alternate!important}
+#rePhotoScene:after{background:repeating-linear-gradient(90deg,transparent 0 13%,#1a304018 13.1% 13.25%,transparent 13.4% 25%),radial-gradient(ellipse at 72% 20%,#126f9a35,transparent 45%),radial-gradient(ellipse at 18% 68%,#a91e3133,transparent 45%)!important}
+body>.wrap{width:min(96vw,1680px)!important;max-width:1680px!important;margin:0 auto!important;padding:26px 28px 100px!important}
+body .appNav{width:min(310px,82vw)!important}
+body .homeHero{grid-template-columns:minmax(0,1.5fr) minmax(300px,.8fr)!important}
+body .panel,body .day,body .recipeCard{background:linear-gradient(135deg,rgba(8,15,24,.9),rgba(4,9,16,.87))!important}
+@media(max-width:800px){body>.wrap{width:100%!important;padding:62px 12px 95px!important}body .homeHero{grid-template-columns:1fr!important}}
+@media(prefers-reduced-motion:reduce){#rePhotoScene:before,#rePhotoScene:after{animation:none!important}}
 </style></head><body><div id="rePhotoScene" aria-hidden="true"></div><main class="wrap"><header class="top"><div class="brand brandWithLogo"><img class="webAppLogo" src="./icon.svg?v=10" alt="RdG@74 Family Fit Planner Logo"><div><h1>Family Fit Planner</h1><p>Normales Familienessen. Clever geplant. Proteinreich & budgetbewusst.</p></div></div><div class="budget"><small>WOCHENBUDGET</small><br><strong id="total"></strong></div></header><div class="reStatusStrip"><span class="reMark">☣</span><span>RDG@74 // FAMILY FIT</span><span class="rePulse">● SYSTEM ONLINE · RECIPE ROTATION ACTIVE</span></div><div class="cosmicTelemetry"><span class="teleChip">● FAMILY SYNC</span><span class="teleChip cyan" id="weekTelemetry">📅 WOCHENPLAN</span><span class="teleChip violet">RDG@74 · FAMILY FIT</span></div>
 <button id="reNavToggle" type="button" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleReNav()">☰</button><div id="reNavShade" onclick="toggleReNav(false)"></div><nav class="appNav" aria-label="Hauptnavigation"><button data-view="home" onclick="showView('home')">🏠<small>Home</small></button><button data-view="week" onclick="showView('week')">📅<small>Woche</small></button><button data-view="shopping" onclick="showView('shopping')">🛒<small>Einkauf</small></button><button data-view="recipes" onclick="showView('recipes')">🍳<small>Rezepte</small></button><button data-view="more" onclick="showView('more')">•••<small>Mehr</small></button></nav><section id="view-home" class="appView active"><div class="homeHero"><div><section class="panel familyPanel"><h2>👨‍👩‍👧‍👦 Unsere Familie</h2><div class="familyGrid">
 <button class="member admin" data-member="Rocco" onclick="selectMember('Rocco')"><span class="memberAvatar" data-avatar="Rocco">👨</span><b class="memberName">Rocco</b><small>Vater · Admin</small></button>
