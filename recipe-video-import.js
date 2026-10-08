@@ -60,18 +60,31 @@ g('vrIngredients').value=ingredients.join('\n');g('vrSteps').value=steps.join('\
 msg(ingredients.length&&steps.length?'Rezeptentwurf erkannt – bitte prüfen.':'Rezepttext übernommen. Fehlende Zutaten und Schritte ergänzen.');
 };
 g('vrSave').onclick=()=>{
-let name=g('vrName').value.trim(),ings=g('vrIngredients').value.trim(),steps=g('vrSteps').value.trim(),url=g('vrLink').value.trim();
-if(!name||!ings||!steps){msg('Name, Zutaten und Zubereitung müssen ausgefüllt sein.');return}
-if(url&&!social(url)){msg('Bitte gültigen Videolink eingeben.');return}
-if(typeof customRecipes==='undefined'||typeof addRecipe!=='function'){msg('Rezeptverwaltung ist nicht bereit.');return}
-if(url&&customRecipes.some(x=>x.sourceUrl===url)&&!confirm('Video bereits gespeichert. Trotzdem nochmals importieren?'))return;
-const previous=customRecipes.length;
-g('rName').value=name;g('rServ').value=String(Math.min(20,Math.max(1,Number(g('vrPortions').value)||4)));g('rPrice').value='';g('rProtein').value='';g('rItems').value=ings;g('rSteps').value=steps;
-try{addRecipe();if(customRecipes.length<=previous)throw Error('Rezept konnte nicht gespeichert werden.');
-const x=customRecipes[customRecipes.length-1];x.sourceUrl=url;x.sourceType='social-recipe';if(photoData)x.image=photoData;x.importedAt=new Date().toISOString();localStorage.setItem('customRecipes',JSON.stringify(customRecipes));
-if(typeof renderOwn==='function')renderOwn();if(typeof renderRecipeLibrary==='function')renderRecipeLibrary();
-close();if(typeof flash==='function')flash('✓ Rezept mit Zutaten und Zubereitung gespeichert');}
-catch(e){msg('Speichern fehlgeschlagen: '+e.message)}
+ const name=g('vrName').value.trim(),ingredients=g('vrIngredients').value.split('\n').map(x=>x.trim()).filter(Boolean),steps=g('vrSteps').value.split('\n').map(x=>x.trim()).filter(Boolean),url=g('vrLink').value.trim();
+ if(!name||!ingredients.length||!steps.length){msg('Bitte erst Rezeptname, Zutaten und Zubereitung prüfen.');return}
+ if(url&&!social(url)){msg('Bitte einen gültigen Videolink verwenden.');return}
+ try{
+  if(typeof customRecipes==='undefined'||!Array.isArray(customRecipes))throw Error('Rezeptdatenbank noch nicht bereit.');
+  const existing=customRecipes.find(x=>url&&x.sourceUrl===url);
+  if(existing&&!confirm('Dieses Video wurde bereits importiert. Trotzdem nochmals speichern?'))return;
+  const portions=Math.max(1,Math.min(20,Number(g('vrPortions').value)||4));
+  const fac=6/portions;
+  const record={name,p:0,k:0,f:0,price:0,items:ingredients.map(x=>typeof scaleIngredient==='function'?scaleIngredient(x,fac):x),steps,custom:true,sourceType:'social-recipe',sourceUrl:url,importedAt:new Date().toISOString(),originalPortions:portions};
+  if(photoData)record.image=photoData;
+  const next=[...customRecipes,record];
+  const serialized=JSON.stringify(next);
+  localStorage.setItem('customRecipes',serialized);
+  if(localStorage.getItem('customRecipes')!==serialized)throw Error('Rezept konnte nicht lokal gesichert werden.');
+  customRecipes=next;
+  if(typeof renderOwn==='function')renderOwn();
+  if(typeof renderRecipeLibrary==='function')renderRecipeLibrary();
+  if(typeof generate==='function')generate();
+  close();
+  if(typeof showView==='function')showView('recipes');
+  const panel=document.getElementById('socialRecipePanel');
+  if(panel)panel.scrollIntoView({behavior:'smooth',block:'start'});
+  if(typeof flash==='function')flash('✓ Social-Media-Rezept gespeichert');
+ }catch(e){msg('Speichern fehlgeschlagen: '+(e.message||e))}
 };
 const button=document.createElement('button');button.textContent='🎬 Video-Rezept importieren';button.type='button';button.style.cssText='background:#c72848;color:white';button.id='vrImportOpen';button.onclick=open;
 (document.querySelector('.actions')||document.querySelector('main')||document.body).prepend(button);
