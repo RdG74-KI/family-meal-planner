@@ -230,6 +230,26 @@ body.navOpen .appNav{transform:translate3d(0,0,0)!important;opacity:1!important}
 #reNavToggle{background:rgba(10,16,25,.86)!important;backdrop-filter:blur(12px);transition:box-shadow .2s,background .2s!important}
 #reNavToggle:hover{box-shadow:0 0 16px #b91d3d66!important}
 @media(prefers-reduced-motion:reduce){.appNav,.appNav button,#reNavToggle{transition:none!important}}
+</style><style id="reActualLabScene">
+/* Actual user-selected laboratory artwork: persistent cinematic scene behind UI */
+html{background:#03060a!important}
+body{position:relative;isolation:isolate;background:transparent!important;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:linear-gradient(90deg,rgba(2,6,11,.34),rgba(2,6,11,.10) 48%,rgba(2,6,11,.30)),url("./Labor.png.png");background-size:cover;background-position:center center;background-repeat:no-repeat;transform:scale(1.035);animation:reLabBreath 22s ease-in-out infinite alternate;will-change:transform}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 78% 30%,rgba(50,132,184,.10),transparent 50%),radial-gradient(ellipse at 16% 62%,rgba(185,16,41,.11),transparent 54%);animation:reEmergencyGlow 8s ease-in-out infinite alternate}
+@keyframes reLabBreath{from{transform:scale(1.035) translate3d(0,0,0)}to{transform:scale(1.085) translate3d(-.6%,.3%,0)}}
+@keyframes reEmergencyGlow{from{opacity:.35}50%{opacity:.85}to{opacity:.5}}
+/* Let the scene remain visible while preserving contrast for controls */
+body .panel,body .homeHero,body .familyPanel,body .day,body .recipeCard,body .snack{background:linear-gradient(145deg,rgba(8,14,22,.86),rgba(4,8,14,.89))!important;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);border:1px solid rgba(117,139,156,.45)!important}
+body .top{background:linear-gradient(110deg,rgba(6,12,20,.87),rgba(15,15,24,.79))!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+body .appNav{background:linear-gradient(140deg,rgba(10,19,29,.87),rgba(4,9,16,.94))!important;backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important}
+body.navOpen .appNav button{animation:reNavItem .32s both}
+body.navOpen .appNav button:nth-child(2){animation-delay:.035s}
+body.navOpen .appNav button:nth-child(3){animation-delay:.07s}
+body.navOpen .appNav button:nth-child(4){animation-delay:.105s}
+body.navOpen .appNav button:nth-child(5){animation-delay:.14s}
+@keyframes reNavItem{from{opacity:0;transform:translateX(-13px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:700px){body::before{background-position:60% center;background-image:linear-gradient(rgba(2,6,11,.34),rgba(2,6,11,.48)),url("./Labor.png.png")}}
+@media(prefers-reduced-motion:reduce){body::before,body::after,body.navOpen .appNav button{animation:none!important}}
 </style></head><body><main class="wrap"><header class="top"><div class="brand brandWithLogo"><img class="webAppLogo" src="./icon.svg?v=10" alt="RdG@74 Family Fit Planner Logo"><div><h1>Family Fit Planner</h1><p>Normales Familienessen. Clever geplant. Proteinreich & budgetbewusst.</p></div></div><div class="budget"><small>WOCHENBUDGET</small><br><strong id="total"></strong></div></header><div class="reStatusStrip"><span class="reMark">☣</span><span>RDG@74 // FAMILY FIT</span><span class="rePulse">● SYSTEM ONLINE · RECIPE ROTATION ACTIVE</span></div><div class="cosmicTelemetry"><span class="teleChip">● FAMILY SYNC</span><span class="teleChip cyan" id="weekTelemetry">📅 WOCHENPLAN</span><span class="teleChip violet">RDG@74 · FAMILY FIT</span></div>
 <button id="reNavToggle" type="button" aria-label="Menü öffnen" aria-expanded="false" onclick="toggleReNav()">☰</button><div id="reNavShade" onclick="toggleReNav(false)"></div><nav class="appNav" aria-label="Hauptnavigation"><button data-view="home" onclick="showView('home')">🏠<small>Home</small></button><button data-view="week" onclick="showView('week')">📅<small>Woche</small></button><button data-view="shopping" onclick="showView('shopping')">🛒<small>Einkauf</small></button><button data-view="recipes" onclick="showView('recipes')">🍳<small>Rezepte</small></button><button data-view="more" onclick="showView('more')">•••<small>Mehr</small></button></nav><section id="view-home" class="appView active"><div class="homeHero"><div><section class="panel familyPanel"><h2>👨‍👩‍👧‍👦 Unsere Familie</h2><div class="familyGrid">
 <button class="member admin" data-member="Rocco" onclick="selectMember('Rocco')"><span class="memberAvatar" data-avatar="Rocco">👨</span><b class="memberName">Rocco</b><small>Vater · Admin</small></button>
