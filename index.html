@@ -818,6 +818,45 @@ lookupBarcode=async function(raw){
  }catch(e){if(status())status().textContent='❌ Fehler bei Produktsuche: '+String(e?.message||e)}
  finally{searching=false}
 };
+function ffAttachPhotoUpload(){
+ const box=document.getElementById('scanResult');if(!box||!scannedProduct)return;
+ let controls=document.getElementById('ffPhotoUploadControls');
+ if(!controls){
+  controls=document.createElement('div');controls.id='ffPhotoUploadControls';controls.className='scanEditor';
+  controls.innerHTML='<label style="display:block;margin:8px 0">📷 Produktfoto hinzufügen oder ersetzen<input id="ffProductPhotoFile" type="file" accept="image/*" capture="environment" style="display:block;margin-top:8px"></label><small class="muted">Foto aufnehmen oder aus der Galerie wählen. Es wird auf diesem Gerät gespeichert.</small>';
+  box.appendChild(controls);
+  controls.querySelector('input').addEventListener('change',ffSaveProductPhoto);
+ }
+}
+async function ffSaveProductPhoto(event){
+ const file=event.target.files?.[0];if(!file||!scannedProduct)return;
+ if(!file.type.startsWith('image/')){flash('❌ Bitte ein Foto auswählen');return}
+ const code=scannedProduct.code;
+ try{
+  const image=await new Promise((resolve,reject)=>{
+   const url=URL.createObjectURL(file),img=new Image();
+   img.onload=()=>{
+    try{
+     const scale=Math.min(1,800/Math.max(img.width,img.height)),canvas=document.createElement('canvas');
+     canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+     canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+     const data=canvas.toDataURL('image/jpeg',0.65);URL.revokeObjectURL(url);resolve(data);
+    }catch(e){URL.revokeObjectURL(url);reject(e)}
+   };
+   img.onerror=()=>{URL.revokeObjectURL(url);reject(Error('Foto konnte nicht geöffnet werden'))};img.src=url;
+  });
+  if(!scannedProduct||scannedProduct.code!==code)return;
+  const cache=readJSON('barcodeProductCache',{}),updated={...scannedProduct,image};
+  cache[code]=updated;
+  localStorage.setItem('barcodeProductCache',JSON.stringify(cache));
+  scannedProduct=updated;
+  renderScannedProduct();
+  if(typeof favoriteGallery==='function')favoriteGallery();
+  flash('✓ Produktfoto gespeichert');
+ }catch(e){flash('❌ Bild konnte nicht gespeichert werden. Eventuell ist der Gerätespeicher voll.')}
+}
+const ffPhotoRender=renderScannedProduct;
+renderScannedProduct=function(){ffPhotoRender();ffAttachPhotoUpload()};
 const oldStart=startFoodScanner;
 startFoodScanner=async function(){
  lastScannedCode='';
