@@ -427,7 +427,7 @@ function addScannedToStock(){let p=updateScannedFromEditor();if(!p)return;let e=
 function addScannedToShopping(){let p=updateScannedFromEditor();if(!p)return;let name=p.name,qty=p.quantity||'1 Packung',price=p.price;if(!customIngredients.some(x=>String(x.name||x).toLowerCase()===name.toLowerCase()))customIngredients.push({name,qty,cat:'Vorrat & Sonstiges',price:price??null,barcode:p.code,protein:p.protein,kcal:p.kcal,image:p.image||''});localStorage.setItem('customIngredients',JSON.stringify(customIngredients));saveScannedProduct();renderOwn();render();flash('✓ '+name+' zur Einkaufsliste hinzugefügt')}
 function addScannedPreference(key){let p=updateScannedFromEditor();if(!p)return;let e=document.getElementById(key),arr=(e.value||'').split(',').map(x=>x.trim()).filter(Boolean),name=p.name;if(!arr.some(x=>x.toLowerCase()===name.toLowerCase()))arr.push(name);e.value=arr.join(', ');saveScannedProduct();savePrefs();flash((key==='likes'?'❤️ ':'🚫 ')+name+' gespeichert')}
 
-function toggleReNav(force){let open=typeof force==='boolean'?force:!document.body.classList.contains('navOpen');document.body.classList.toggle('navOpen',open);let b=document.getElementById('reNavToggle');if(b){b.classList.toggle('isOpen',open);b.setAttribute('aria-expanded',String(open));b.setAttribute('aria-label',open?'Menü schliessen':'Menü öffnen')}}
+function toggleReNav(force){let open=typeof force==='boolean'?force:!document.body.classList.contains('navOpen');document.body.classList.toggle('navOpen',open);if(open){document.body.classList.remove('ffWheelClosing');document.body.classList.remove('ffWheelSpin');void document.body.offsetWidth;document.body.classList.add('ffWheelSpin')}else{document.body.classList.remove('ffWheelSpin')}let b=document.getElementById('reNavToggle');if(b){b.classList.toggle('isOpen',open);b.setAttribute('aria-expanded',String(open));b.setAttribute('aria-label',open?'Menü schliessen':'Menü öffnen')}}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleReNav(false)});
 function openSocialRecipes(){showView('recipes');if(typeof renderSocialRecipes==='function')renderSocialRecipes();let e=document.getElementById('socialRecipePanel');if(e){e.style.border='2px solid #e5bf55';requestAnimationFrame(()=>e.scrollIntoView({behavior:'smooth',block:'start'}));}}
 function showPreferences(){showView('preferences');document.getElementById('settings')?.classList.remove('hidden');document.getElementById('likes')?.focus({preventScroll:true})}
@@ -716,7 +716,7 @@ function init(){
   b.style.clipPath='polygon('+pts.map(q=>q.map(v=>(v/310*100).toFixed(2)+'%').join(' ')).join(',')+')';
   const mid=(i*(360/8)+(180/8)-90)*Math.PI/180;
   const label=document.createElement('span');label.style.left=(155+105*Math.cos(mid))+'px';label.style.top=(155+105*Math.sin(mid))+'px';label.innerHTML=icons[i]+'<small>'+names[i]+'</small>';b.appendChild(label);
-  b.addEventListener('click',()=>{if(i===4)openSocialRecipes();else if(i===5)showPreferences();else if(i===7)ffOpenThemeLab();else showView(['home','week','shopping','recipes','','','more'][i])});b.addEventListener('click',()=>{document.querySelectorAll('#ffRadialWheel .ffSlice').forEach(x=>x.classList.remove('ffSelected'));b.classList.add('ffSelected')});wheel.appendChild(b);
+  b.addEventListener('click',()=>{if(document.body.classList.contains('ffWheelClosing'))return;document.querySelectorAll('#ffRadialWheel .ffSlice').forEach(x=>x.classList.remove('ffSelected'));b.classList.add('ffSelected');document.body.classList.remove('ffWheelSpin');document.body.classList.add('ffWheelClosing');setTimeout(()=>{if(i===4)openSocialRecipes();else if(i===5)showPreferences();else if(i===7)ffOpenThemeLab();else showView(['home','week','shopping','recipes','','','more'][i]);toggleReNav(false);document.body.classList.remove('ffWheelClosing');if(typeof window.ffUpdateHomeButton==='function')window.ffUpdateHomeButton()},620)});wheel.appendChild(b);
  }
  document.body.appendChild(wheel);
  document.body.classList.add('radialReady');
@@ -1041,5 +1041,37 @@ body[data-ff-theme] .panel{animation:ffPanelArrival .4s ease both}
   const observer=new MutationObserver(updateHome);views.forEach(v=>observer.observe(v,{attributes:true,attributeFilter:['class']}));
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script><style id="ffNavigationMasterV54">
+/* Master navigation rules override historical V39-V53 rules */
+body.radialReady #ffRadialWheel{visibility:hidden!important;opacity:0!important;pointer-events:none!important;transform:scale(.12) rotate(-420deg)!important;transform-origin:155px 155px!important;transition:transform .85s cubic-bezier(.12,.84,.18,1.08),opacity .38s ease,visibility .85s!important;animation:none!important;filter:drop-shadow(0 0 22px #000a)}
+body.radialReady.navOpen #ffRadialWheel{visibility:visible!important;opacity:1!important;pointer-events:auto!important;transform:scale(1) rotate(0deg)!important;transition:transform 1.05s cubic-bezier(.12,.85,.24,1.15),opacity .25s ease,visibility 0s!important}
+body.radialReady.ffWheelClosing #ffRadialWheel{visibility:visible!important;opacity:0!important;pointer-events:none!important;transform:scale(.12) rotate(380deg)!important;transition:transform .6s cubic-bezier(.65,0,.9,.25),opacity .48s ease!important}
+body.radialReady #ffRadialWheel .ffSlice{transition:filter .24s ease,background .24s ease!important}
+body.radialReady #ffRadialWheel .ffSlice.ffSelected{filter:brightness(1.48) drop-shadow(0 0 15px var(--ffGlow,#00f2fe))!important}
+body.radialReady #ffRadialWheel .ffSlice.ffSelected span{font-weight:900!important;text-shadow:0 0 8px #000,0 0 18px var(--ffGlow,#00f2fe)!important}
+body.radialReady #reNavToggle{box-shadow:0 0 0 2px var(--ffAccent,#00f2fe),0 0 23px color-mix(in srgb,var(--ffAccent,#00f2fe) 45%,transparent)!important}
+body.radialReady.navOpen #reNavToggle .reUmbrellaIcon{animation:ffReactorIcon 1.15s ease-out both}
+@keyframes ffReactorIcon{0%{transform:rotate(-360deg) scale(.5)}65%{transform:rotate(15deg) scale(1.12)}100%{transform:rotate(0deg) scale(1)}}
+#ffHomeReturn{display:flex!important;visibility:visible!important;opacity:1!important;position:fixed!important;top:12px!important;right:12px!important;bottom:auto!important;z-index:250!important;min-height:44px!important;padding:10px 16px!important;border:2px solid var(--ffAccent,#00f2fe)!important;border-radius:999px!important;background:var(--ffSurface2,#111827)!important;color:var(--ffText,#fff)!important;font-size:14px!important;box-shadow:0 4px 18px #0009,0 0 18px color-mix(in srgb,var(--ffAccent,#00f2fe) 30%,transparent)!important}
+body:not(.ffAwayFromHome) #ffHomeReturn{display:none!important}
+body.ffAwayFromHome #ffHomeReturn{display:flex!important}
+body[data-ff-theme] .appView.active>.panel,body[data-ff-theme] .appView.active>.sectionHead{animation:ffContentRise .38s cubic-bezier(.2,.9,.3,1) both}
+@keyframes ffContentRise{from{opacity:.25;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+body[data-ff-theme] .familyPanel .member{border:1.5px solid var(--ffBorder)!important;backdrop-filter:blur(9px)}
+body[data-ff-theme] .familyPanel .member.active{outline:2px solid var(--ffAccent);outline-offset:2px}
+body[data-ff-theme] .panel{border:1px solid var(--ffBorder)!important;box-shadow:0 8px 28px #0005,inset 0 1px #ffffff18!important}
+body[data-ff-theme] .panel h2{color:var(--ffText)!important;text-shadow:0 0 13px color-mix(in srgb,var(--ffAccent) 20%,transparent)}
+body[data-ff-theme] .day,body[data-ff-theme] .item,body[data-ff-theme] .hudMetric{transition:transform .2s ease,border-color .2s ease}
+body[data-ff-theme] .day:hover,body[data-ff-theme] .item:hover,body[data-ff-theme] .hudMetric:hover{transform:translateY(-2px);border-color:var(--ffAccent)!important}
+@media(max-width:480px){body.radialReady #ffRadialWheel{transform-origin:155px 155px!important}#ffHomeReturn{top:10px!important;right:9px!important;padding:8px 12px!important}}
+@media(prefers-reduced-motion:reduce){body.radialReady #ffRadialWheel,body.radialReady.navOpen #ffRadialWheel,body.radialReady.ffWheelClosing #ffRadialWheel{transition:none!important}body.radialReady.navOpen #reNavToggle .reUmbrellaIcon{animation:none!important}}
+</style>
+<script id="ffNavigationSafetyV54">
+(function(){
+function refresh(){const active=document.querySelector('.appView.active');const away=!!active&&active.id!=='view-home';document.body.classList.toggle('ffAwayFromHome',away);const b=document.getElementById('ffHomeReturn');if(b)b.hidden=!away}
+window.ffUpdateHomeButton=refresh;
+function init(){refresh();const root=document.querySelector('.wrap')||document.body;new MutationObserver(refresh).observe(root,{subtree:true,attributes:true,attributeFilter:['class']});const home=document.getElementById('ffHomeReturn');if(home)home.textContent='← Home';}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
 </script></body></html>
