@@ -1161,8 +1161,9 @@ const link='https://open.spotify.com/playlist/'+playlist;
 function init(){
  if(document.getElementById('ffSpotifyDock'))return;
  const dock=document.createElement('aside');dock.id='ffSpotifyDock';dock.dataset.expanded='false';dock.setAttribute('aria-label','The ROC 2 Spotify Musikplayer');
- dock.innerHTML='<div class="ffSpotifyHeader"><span class="ffSpotifyMark" aria-hidden="true">♫</span><span class="ffSpotifyName"><b>The ROC 2</b><small>RdG@74 · Spotify</small></span><button id="ffSpotifyToggle" type="button" aria-label="Spotify-Player öffnen" aria-expanded="false">▶</button></div><div class="ffSpotifyBody"><div id="ffSpotifyFrameHost"></div><p class="ffSpotifyHelp">Musik im Spotify-Player starten. Beim Wechsel zwischen Family-Fit-Seiten bleibt der Player erhalten. <a class="ffSpotifyLink" href="'+link+'" target="_blank" rel="noopener noreferrer">In Spotify öffnen ↗</a></p></div>';
+ dock.innerHTML='<div class="ffSpotifyHeader"><span class="ffSpotifyMark" aria-hidden="true">♫</span><span class="ffSpotifyName"><b>The ROC 2</b><small>RdG@74 · ganze Playlist in Spotify</small></span><button id="ffSpotifyToggle" type="button" aria-label="Spotify-Player öffnen" aria-expanded="false">▶</button></div><div class="ffSpotifyBody"><div id="ffSpotifyFrameHost"></div><p class="ffSpotifyHelp">Der Mini-Player kann nur einen Teil der Songs anzeigen. Für alle Titel öffne die vollständige Playlist in Spotify. <a class="ffSpotifyLink" href="'+link+'" target="_blank" rel="noopener noreferrer">Alle Songs in Spotify ↗</a></p></div>';
  document.body.appendChild(dock);
+ const full=document.createElement('a');full.id='ffSpotifyFull';full.href=link;full.target='_blank';full.rel='noopener noreferrer';full.textContent='♫ Alle Songs';full.setAttribute('aria-label','Vollständige Playlist The ROC 2 in Spotify öffnen');dock.querySelector('.ffSpotifyHeader').insertBefore(full,dock.querySelector('#ffSpotifyToggle'));
  const toggle=dock.querySelector('#ffSpotifyToggle');
  toggle.addEventListener('click',()=>{
   const expanded=dock.dataset.expanded!=='true';dock.dataset.expanded=String(expanded);toggle.textContent=expanded?'⌄':'▶';toggle.setAttribute('aria-expanded',String(expanded));toggle.setAttribute('aria-label',expanded?'Spotify-Player einklappen':'Spotify-Player öffnen');
@@ -1172,4 +1173,4 @@ function init(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
-</script></body></html>
+</script><style id="ffSpotifyFullV57">#ffSpotifyFull{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;padding:9px 10px;border-radius:12px;background:#1ed760;color:#071b0e!important;font-size:11px;font-weight:900;text-decoration:none;min-height:36px;box-shadow:0 0 13px #1ed76055}#ffSpotifyFull:focus-visible{outline:3px solid #fff;outline-offset:2px}@media(max-width:380px){#ffSpotifyFull{padding:7px;font-size:10px}#ffSpotifyDock .ffSpotifyName small{display:none}}</style></body></html>
