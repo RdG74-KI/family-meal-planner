@@ -1139,4 +1139,37 @@ function init(){if(document.getElementById('ffSavingsRadar')){const saved=read()
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 window.addEventListener('online',()=>window.ffAutoRadarScan(false));
 })();
+</script><style id="ffSpotifyV56Style">
+#ffSpotifyDock{position:fixed;z-index:240;right:12px;bottom:14px;width:min(350px,calc(100vw - 24px));border:1px solid var(--ffBorder,#526273);border-radius:20px;background:var(--ffSurface,#121b27);color:var(--ffText,#fff);box-shadow:0 14px 40px #000b;overflow:hidden;backdrop-filter:blur(18px)}
+#ffSpotifyDock .ffSpotifyHeader{display:flex;align-items:center;gap:9px;padding:9px 12px;min-height:54px}
+#ffSpotifyDock .ffSpotifyMark{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#1ed760;color:#071a0c;font-size:19px;flex:none}
+#ffSpotifyDock .ffSpotifyName{flex:1;min-width:0;font-size:13px;line-height:1.3}
+#ffSpotifyDock .ffSpotifyName small{display:block;color:var(--ffSecondary,#d2d8e0);font-size:11px}
+#ffSpotifyDock .ffSpotifyHeader button{min-width:38px;min-height:38px;padding:6px!important;border-radius:12px!important;background:var(--ffSurface2,#202938)!important;color:var(--ffText,#fff)!important;border:1px solid var(--ffBorder,#526273)!important}
+#ffSpotifyDock .ffSpotifyBody{padding:0 10px 10px}
+#ffSpotifyDock iframe{width:100%;height:152px;border:0;border-radius:13px;display:block;background:#121212}
+#ffSpotifyDock[data-expanded="false"] .ffSpotifyBody{display:none}
+#ffSpotifyDock .ffSpotifyHelp{font-size:10px;line-height:1.45;color:var(--ffSecondary,#d2d8e0);margin:7px 3px 0}
+#ffSpotifyDock .ffSpotifyLink{font-size:11px;color:var(--ffAccent,#00f2fe);text-decoration:underline}
+body{padding-bottom:80px!important}
+@media(max-width:520px){#ffSpotifyDock{right:8px;bottom:8px;width:min(310px,calc(100vw - 16px))}#ffSpotifyDock .ffSpotifyHeader{min-height:50px;padding:7px 9px}}
+</style>
+<script id="ffSpotifyV56">
+(function(){
+const playlist='4syT3ENOenLHZXSAl0dAXb';
+const link='https://open.spotify.com/playlist/'+playlist;
+function init(){
+ if(document.getElementById('ffSpotifyDock'))return;
+ const dock=document.createElement('aside');dock.id='ffSpotifyDock';dock.dataset.expanded='false';dock.setAttribute('aria-label','The ROC 2 Spotify Musikplayer');
+ dock.innerHTML='<div class="ffSpotifyHeader"><span class="ffSpotifyMark" aria-hidden="true">♫</span><span class="ffSpotifyName"><b>The ROC 2</b><small>RdG@74 · Spotify</small></span><button id="ffSpotifyToggle" type="button" aria-label="Spotify-Player öffnen" aria-expanded="false">▶</button></div><div class="ffSpotifyBody"><div id="ffSpotifyFrameHost"></div><p class="ffSpotifyHelp">Musik im Spotify-Player starten. Beim Wechsel zwischen Family-Fit-Seiten bleibt der Player erhalten. <a class="ffSpotifyLink" href="'+link+'" target="_blank" rel="noopener noreferrer">In Spotify öffnen ↗</a></p></div>';
+ document.body.appendChild(dock);
+ const toggle=dock.querySelector('#ffSpotifyToggle');
+ toggle.addEventListener('click',()=>{
+  const expanded=dock.dataset.expanded!=='true';dock.dataset.expanded=String(expanded);toggle.textContent=expanded?'⌄':'▶';toggle.setAttribute('aria-expanded',String(expanded));toggle.setAttribute('aria-label',expanded?'Spotify-Player einklappen':'Spotify-Player öffnen');
+  const host=dock.querySelector('#ffSpotifyFrameHost');
+  if(expanded&&!host.firstChild){const iframe=document.createElement('iframe');iframe.title='Spotify Playlist The ROC 2';iframe.src='https://open.spotify.com/embed/playlist/'+playlist+'?utm_source=generator&theme=0';iframe.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';iframe.loading='lazy';iframe.referrerPolicy='strict-origin-when-cross-origin';host.appendChild(iframe)}
+ });
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
 </script></body></html>
