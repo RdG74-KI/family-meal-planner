@@ -380,7 +380,7 @@ const MEMBER_EMOJI={Rocco:'👨',Nadine:'👩',Gianluca:'🧑',Elijah:'🧑',Cri
 let profilePhotos=readJSON('profilePhotos',{});
 function renderProfilePhotos(){document.querySelectorAll('[data-avatar]').forEach(a=>{let n=a.dataset.avatar,p=profilePhotos[n];a.innerHTML=p?'<img src="'+p+'" alt="Profilbild '+n+'">':(MEMBER_EMOJI[n]||'👤')});renderPhotoPreview()}
 function renderPhotoPreview(){let b=document.getElementById('photoPreview'),s=document.getElementById('photoMember');if(!b||!s)return;let n=s.value,p=profilePhotos[n];b.classList.toggle('show',!!p);b.innerHTML=p?'<img src="'+p+'" alt="Profilbild '+n+'"><div><b>'+esc(n)+'</b><small>Gespeichertes Profilbild</small></div>':''}
-function compressProfilePhoto(file){return new Promise((resolve,reject)=>{let img=new Image(),u=URL.createObjectURL(file);img.onload=()=>{let size=Math.min(img.naturalWidth,img.naturalHeight),sx=(img.naturalWidth-size)/2,sy=(img.naturalHeight-size)/2,cv=document.createElement('canvas');cv.width=cv.height=256;cv.getContext('2d').drawImage(img,sx,sy,size,size,0,0,256,256);URL.revokeObjectURL(u);resolve(cv.toDataURL('image/jpeg',.72))};img.onerror=()=>{URL.revokeObjectURL(u);reject(new Error('Bild nicht lesbar'))};img.src=u})}
+function compressProfilePhoto(file){return new Promise((resolve,reject)=>{let img=new Image(),u=URL.createObjectURL(file);img.onload=()=>{let size=Math.min(img.naturalWidth,img.naturalHeight),sx=(img.naturalWidth-size)/2,sy=(img.naturalHeight-size)/2,cv=document.createElement('canvas');cv.width=cv.height=384;cv.getContext('2d').drawImage(img,sx,sy,size,size,0,0,384,384);URL.revokeObjectURL(u);resolve(cv.toDataURL('image/jpeg',.78))};img.onerror=()=>{URL.revokeObjectURL(u);reject(new Error('Bild nicht lesbar'))};img.src=u})}
 async function saveProfilePhoto(ev){let file=ev.target.files&&ev.target.files[0],name=document.getElementById('photoMember').value;if(!file)return;if(!file.type.startsWith('image/')){flash('❌ Bitte ein Bild auswählen');return}if(file.size>12*1024*1024){flash('❌ Bild ist zu gross');ev.target.value='';return}try{profilePhotos[name]=await compressProfilePhoto(file);localStorage.setItem('profilePhotos',JSON.stringify(profilePhotos));renderProfilePhotos();flash('✓ Profilbild für '+name+' gespeichert')}catch(e){flash('❌ Profilbild konnte nicht verarbeitet werden')}finally{ev.target.value=''}}
 function removeProfilePhoto(){let name=document.getElementById('photoMember').value;if(!profilePhotos[name]){flash('ℹ️ Für '+name+' ist kein Profilbild gespeichert');return}delete profilePhotos[name];localStorage.setItem('profilePhotos',JSON.stringify(profilePhotos));renderProfilePhotos();flash('✓ Profilbild von '+name+' entfernt')}
 
@@ -954,4 +954,45 @@ const saved=localStorage.getItem('ffThemeV49')||'cyan';const allowed=['cyan','cr
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 document.addEventListener('click',e=>{const b=e.target.closest?.('#ffThemeLab .choices button');if(b){requestAnimationFrame(()=>{document.querySelectorAll('#ffThemeLab .choices button').forEach(x=>x.dataset.active=String(x.dataset.theme===document.body.dataset.ffTheme))})}});
 })();
-</script></body></html>
+</script><style id="ffCompactPremiumV52">
+/* Compact premium cards: theme-aware and mobile first */
+body[data-ff-theme] .panel{border-radius:20px!important;padding:15px!important;margin-bottom:11px!important;box-shadow:0 10px 26px #0003,inset 0 1px #ffffff12!important}
+body[data-ff-theme] .panel h2{margin:0 0 10px;font-size:clamp(16px,2.5vw,21px);letter-spacing:.01em}
+body[data-ff-theme] .panel h3{margin-top:5px}
+body[data-ff-theme] .formgrid{gap:9px}
+body[data-ff-theme] .formgrid label,body[data-ff-theme] .planControl label{font-size:12px;font-weight:750}
+body[data-ff-theme] input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),body[data-ff-theme] select,body[data-ff-theme] textarea{border-radius:13px!important;padding:10px 12px!important;min-height:40px;box-shadow:inset 0 1px 4px #0003;background:color-mix(in srgb,var(--ffSurface2) 86%,#fff 4%)!important;color:var(--ffText)!important}
+body[data-ff-theme] .familyGrid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important}
+body[data-ff-theme] .member{min-height:0!important;padding:13px 7px 11px!important;gap:5px!important;border-radius:19px!important;align-items:center!important;justify-content:center;overflow:hidden;position:relative;transition:transform .2s,border-color .2s,box-shadow .2s}
+body[data-ff-theme] .member:hover{transform:translateY(-2px)}
+body[data-ff-theme] .member.active{background:linear-gradient(155deg,color-mix(in srgb,var(--ffAccent) 22%,var(--ffSurface)),var(--ffSurface2))!important;color:var(--ffText)!important;border-color:var(--ffAccent)!important;box-shadow:0 0 18px color-mix(in srgb,var(--ffAccent) 24%,transparent)!important}
+body[data-ff-theme] .memberAvatar{width:82px!important;height:82px!important;font-size:38px!important;border:2px solid var(--ffBorder)!important;box-shadow:0 5px 18px #0006}
+body[data-ff-theme] .memberAvatar img{width:100%;height:100%;object-fit:cover;object-position:center}
+body[data-ff-theme] .member.active .memberAvatar{border-color:var(--ffAccent)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--ffAccent) 25%,transparent),0 0 20px color-mix(in srgb,var(--ffAccent) 40%,transparent)!important}
+body[data-ff-theme] .memberName{font-size:13px!important;font-weight:850!important;line-height:1.2}
+body[data-ff-theme] .member small{font-size:10px;line-height:1.2}
+body[data-ff-theme] .photoPreview{border-radius:17px!important;padding:10px!important;gap:12px}
+body[data-ff-theme] .photoPreview img{width:112px!important;height:112px!important;border-radius:17px!important;object-fit:cover}
+body[data-ff-theme] .photoTools{gap:7px!important}
+body[data-ff-theme] .photoTools label,body[data-ff-theme] .photoTools button{border-radius:13px!important;padding:9px 11px!important}
+body[data-ff-theme] .reactorMetrics{gap:7px!important}
+body[data-ff-theme] .hudMetric{padding:10px!important;border-radius:14px!important}
+body[data-ff-theme] .quickGrid{gap:7px!important}
+body[data-ff-theme] .quickGrid button{min-height:58px!important;border-radius:14px!important}
+body[data-ff-theme] .day{padding:11px!important;border-radius:17px!important}
+body[data-ff-theme] .sectionHead{border-radius:12px}
+@media(min-width:850px){
+ body[data-ff-theme] .familyGrid{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+ body[data-ff-theme] .memberAvatar{width:92px!important;height:92px!important}
+}
+@media(max-width:520px){
+ body[data-ff-theme] .wrap{padding:8px 3px!important}
+ body[data-ff-theme] .familyGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:6px!important}
+ body[data-ff-theme] .member{padding:10px 4px!important;border-radius:15px!important}
+ body[data-ff-theme] .memberAvatar{width:72px!important;height:72px!important}
+ body[data-ff-theme] .panel{padding:12px!important;margin-bottom:9px!important}
+ body[data-ff-theme] .photoPreview img{width:94px!important;height:94px!important}
+ body[data-ff-theme] .formgrid{gap:7px}
+}
+@media(max-width:350px){body[data-ff-theme] .familyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+</style></body></html>
