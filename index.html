@@ -455,7 +455,7 @@ const verifiedDeals=[
 ];
 function activeVerifiedDeals(){return verifiedDeals.filter(d=>!d.valid.includes('07.10.2026')&&!d.valid.includes('nur Tessin'))}
 function dealFor(text){let z=String(text||'').toLowerCase();return activeVerifiedDeals().filter(d=>z.includes(d.key)).sort((a,b)=>a.price-b.price)[0]||null}
-function renderDeals(){let e=document.getElementById('dealList');if(!e)return;e.innerHTML=activeVerifiedDeals().map(d=>'<div class="deal"><b>'+d.store+'</b> · '+d.product+' · '+d.pack+' <strong>CHF '+d.price.toFixed(2)+'</strong><small>'+d.valid+(d.regular?' · statt CHF '+d.regular.toFixed(2):'')+'</small></div>').join('')}
+function renderDeals(){let e=document.getElementById('dealList');if(!e)return;let deals=activeVerifiedDeals();e.innerHTML=deals.length?deals.map(d=>'<div class="deal"><b>'+d.store+'</b> · '+d.product+' · '+d.pack+' <strong>CHF '+d.price.toFixed(2)+'</strong><small>'+d.valid+(d.regular?' · statt CHF '+d.regular.toFixed(2):'')+'</small></div>').join(''):'<div class="deal" style="grid-column:1/-1"><b>🏷️ Aktuell keine verifizierten Aktionen hinterlegt</b><p>Abgelaufene Aktionen werden nicht als aktuelle Angebote angezeigt. Die Rezeptpreise sind Richtwerte und keine geprüften Tagespreise.</p><small>Preisvergleich: Coop, Migros, Denner, Lidl und ALDI – immer Packungsgrösse und Preis pro kg vergleichen.</small></div>'}
 function readJSON(key,fallback){try{let raw=localStorage.getItem(key);if(!raw)return fallback;let v=JSON.parse(raw);return v==null?fallback:v}catch(e){console.warn('Family Fit: beschädigte lokale Daten in '+key+' wurden ignoriert.',e);return fallback}}
 function validMeal(m){return !!(m&&typeof m.name==='string'&&m.name.trim()&&Array.isArray(m.items)&&Number.isFinite(Number(m.price)))}
 const D=['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
@@ -703,17 +703,17 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 (function(){
 function init(){
  if(document.getElementById('ffRadialWheel'))return;
- const names=['Home','Woche','Einkauf','Rezepte','Social','Vorlieben','Mehr'],icons=['🏠','📅','🛒','🍳','📱','❤️','⚙️'];
+ const names=['Home','Woche','Einkauf','Rezepte','Social','Vorlieben','Mehr','Design'],icons=['🏠','📅','🛒','🍳','📱','❤️','⚙️','🎨'];
  const wheel=document.createElement('div');wheel.id='ffRadialWheel';wheel.setAttribute('aria-label','Umbrella-Fächermenü');
- for(let i=0;i<7;i++){
+ for(let i=0;i<8;i++){
   const b=document.createElement('button');b.type='button';b.className='ffSlice';b.setAttribute('aria-label',names[i]);
-  const a=(i*(360/7)-90)*Math.PI/180,z=((i+1)*(360/7)-90)*Math.PI/180;
+  const a=(i*(360/8)-90)*Math.PI/180,z=((i+1)*(360/8)-90)*Math.PI/180;
   const p=(rad,ang)=>[155+rad*Math.cos(ang),155+rad*Math.sin(ang)];
   const pts=[p(151,a),p(151,z),p(45,z),p(45,a)];
   b.style.clipPath='polygon('+pts.map(q=>q.map(v=>(v/310*100).toFixed(2)+'%').join(' ')).join(',')+')';
-  const mid=(i*(360/7)+(180/7)-90)*Math.PI/180;
+  const mid=(i*(360/8)+(180/8)-90)*Math.PI/180;
   const label=document.createElement('span');label.style.left=(155+105*Math.cos(mid))+'px';label.style.top=(155+105*Math.sin(mid))+'px';label.innerHTML=icons[i]+'<small>'+names[i]+'</small>';b.appendChild(label);
-  b.addEventListener('click',()=>{if(i===4)openSocialRecipes();else if(i===5)showPreferences();else showView(['home','week','shopping','recipes','','','more'][i])});wheel.appendChild(b);
+  b.addEventListener('click',()=>{if(i===4)openSocialRecipes();else if(i===5)showPreferences();else if(i===7)ffOpenThemeLab();else showView(['home','week','shopping','recipes','','','more'][i])});b.addEventListener('click',()=>{document.querySelectorAll('#ffRadialWheel .ffSlice').forEach(x=>x.classList.remove('ffSelected'));b.classList.add('ffSelected')});wheel.appendChild(b);
  }
  document.body.appendChild(wheel);
  document.body.classList.add('radialReady');
@@ -873,5 +873,31 @@ const oldStop=stopFoodScanner;
 stopFoodScanner=function(update=true){oldStop(update);if(update)lastScannedCode=''};
 const oldShow=showView;showView=function(name){oldShow(name);if(name==='preferences')favoriteGallery()};
 document.addEventListener('DOMContentLoaded',favoriteGallery);
+})();
+</script><style id="ffThemesV49">
+#ffRadialWheel .ffSlice.ffSelected{filter:brightness(1.45) drop-shadow(0 0 14px var(--ffGlow,#00f2fe))!important}
+#ffRadialWheel .ffSlice:focus-visible{filter:brightness(1.4) drop-shadow(0 0 12px var(--ffGlow,#00f2fe))!important}
+#ffThemeLab{position:fixed;inset:0;z-index:300;background:#070a12d9;display:none;align-items:center;justify-content:center;padding:18px}
+#ffThemeLab.open{display:flex}
+#ffThemeLab .inner{background:#141b25;border:1px solid var(--ffGlow,#00f2fe);box-shadow:0 0 30px #000;max-width:450px;width:100%;border-radius:20px;padding:20px;color:white}
+#ffThemeLab .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+#ffThemeLab .choices button{min-height:58px;color:white;border:1px solid #ffffff44}
+body[data-ff-theme="cyan"]{--cyan:#00f2fe;--violet:#a855f7;--ffGlow:#00f2fe}
+body[data-ff-theme="crimson"]{--cyan:#ff4568;--violet:#e01a39;--ffGlow:#ff4568}
+body[data-ff-theme="emerald"]{--cyan:#40f2a0;--violet:#27b774;--ffGlow:#40f2a0}
+body[data-ff-theme="gold"]{--cyan:#ffda63;--violet:#e8982c;--ffGlow:#ffda63}
+body[data-ff-theme="violet"]{--cyan:#c99aff;--violet:#864aff;--ffGlow:#c99aff}
+body[data-ff-theme="ice"]{--cyan:#a9e9ff;--violet:#55a8f2;--ffGlow:#a9e9ff}
+</style>
+<script id="ffThemesV49">
+(function(){
+const themes=[['cyan','⚡ Cyan','#008bb7'],['crimson','🩸 Crimson','#a91934'],['emerald','🌿 Emerald','#087b55'],['gold','✨ Gold','#ae7c13'],['violet','💜 Violet','#7144b4'],['ice','❄️ Ice','#397a9e']];
+window.ffOpenThemeLab=function(){
+ let panel=document.getElementById('ffThemeLab');
+ if(!panel){panel=document.createElement('div');panel.id='ffThemeLab';panel.innerHTML='<div class="inner" role="dialog" aria-modal="true" aria-label="Design-Labor"><h2>🎨 Design-Labor</h2><p>Wähle deine Stimmung. Die Auswahl wird auf diesem Gerät gespeichert.</p><div class="choices"></div><button class="secondary" id="ffCloseTheme">Schliessen</button></div>';document.body.appendChild(panel);panel.querySelector('#ffCloseTheme').onclick=()=>panel.classList.remove('open');panel.addEventListener('click',e=>{if(e.target===panel)panel.classList.remove('open')});const choices=panel.querySelector('.choices');themes.forEach(([id,label,color])=>{const b=document.createElement('button');b.textContent=label;b.style.background=color;b.onclick=()=>{document.body.dataset.ffTheme=id;localStorage.setItem('ffThemeV49',id);panel.classList.remove('open')};choices.appendChild(b)})}
+ panel.classList.add('open');toggleReNav(false);
+};
+function apply(){const t=localStorage.getItem('ffThemeV49')||'cyan';document.body.dataset.ffTheme=themes.some(x=>x[0]===t)?t:'cyan'}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply,{once:true});else apply();
 })();
 </script></body></html>
