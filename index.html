@@ -920,4 +920,38 @@ window.ffRadarRender=function(){
 };
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',window.ffRadarRender);else window.ffRadarRender();
 })();
+</script><style id="ffRealThemesV51">
+body[data-ff-theme]{--ffAccent:#00f2fe;--ffSecond:#a855f7;--ffSurface:#111827;--ffSurface2:#090d19;--ffBorder:#00f2fe55;--ffText:#f8fbff;--ffBack:#05070d;--ffGlow:#00f2fe;color:var(--ffText)!important;background:radial-gradient(ellipse at 10% 10%,color-mix(in srgb,var(--ffAccent) 20%,transparent),transparent 40%),radial-gradient(ellipse at 85% 70%,color-mix(in srgb,var(--ffSecond) 18%,transparent),transparent 45%),var(--ffBack)!important;transition:background .3s,color .3s}
+body[data-ff-theme="crimson"]{--ffAccent:#ff4269;--ffSecond:#c21935;--ffSurface:#251018;--ffSurface2:#110910;--ffBorder:#ff426966;--ffBack:#0e0509;--ffGlow:#ff4269}
+body[data-ff-theme="emerald"]{--ffAccent:#46edaa;--ffSecond:#16895e;--ffSurface:#0c2420;--ffSurface2:#071512;--ffBorder:#46edaa66;--ffBack:#04120f;--ffGlow:#46edaa}
+body[data-ff-theme="gold"]{--ffAccent:#ffda72;--ffSecond:#bb7a27;--ffSurface:#282013;--ffSurface2:#151006;--ffBorder:#ffda7266;--ffBack:#130e04;--ffGlow:#ffda72}
+body[data-ff-theme="violet"]{--ffAccent:#d3a2ff;--ffSecond:#753ce4;--ffSurface:#21132d;--ffSurface2:#10091b;--ffBorder:#d3a2ff66;--ffBack:#0e0717;--ffGlow:#d3a2ff}
+body[data-ff-theme="ice"]{--ffAccent:#a8edff;--ffSecond:#458ac5;--ffSurface:#142a39;--ffSurface2:#091722;--ffBorder:#a8edff66;--ffBack:#07121d;--ffGlow:#a8edff}
+body[data-ff-theme="rose"]{--ffAccent:#ff8cc9;--ffSecond:#c93b87;--ffSurface:#2b1425;--ffSurface2:#160b16;--ffBorder:#ff8cc966;--ffBack:#140914;--ffGlow:#ff8cc9}
+body[data-ff-theme="obsidian"]{--ffAccent:#e7eef5;--ffSecond:#758a9a;--ffSurface:#1d2228;--ffSurface2:#0d1015;--ffBorder:#a4b5c766;--ffBack:#07090d;--ffGlow:#d3e3f3}
+body[data-ff-theme] .panel,body[data-ff-theme] .day,body[data-ff-theme] .hudMetric,body[data-ff-theme] .deal,body[data-ff-theme] .item,body[data-ff-theme] .member,body[data-ff-theme] .printGrid>button{background:linear-gradient(145deg,var(--ffSurface),var(--ffSurface2))!important;border-color:var(--ffBorder)!important;color:var(--ffText)!important}
+body[data-ff-theme] .panel:hover{border-color:var(--ffAccent)!important}
+body[data-ff-theme] button:not(.ffSlice):not(#reNavToggle):not(.secondary):not(.danger),body[data-ff-theme] .printGrid>button.primaryPrint{background:linear-gradient(135deg,var(--ffAccent),var(--ffSecond))!important;color:#081018!important;box-shadow:0 0 15px color-mix(in srgb,var(--ffAccent) 28%,transparent)!important}
+body[data-ff-theme] .secondary{background:var(--ffSurface)!important;color:var(--ffText)!important;border:1px solid var(--ffBorder)!important}
+body[data-ff-theme] .day h3,body[data-ff-theme] .cat,body[data-ff-theme] .price,body[data-ff-theme] .deal strong,body[data-ff-theme] .activeMember{color:var(--ffAccent)!important}
+body[data-ff-theme] .reactorRing{box-shadow:0 0 35px color-mix(in srgb,var(--ffAccent) 35%,transparent)!important}
+body[data-ff-theme] input,body[data-ff-theme] select,body[data-ff-theme] textarea{accent-color:var(--ffAccent);border-color:var(--ffBorder)!important}
+body[data-ff-theme] #ffRadialWheel .ffSlice.ffSelected{filter:brightness(1.5) drop-shadow(0 0 14px var(--ffGlow))!important}
+body[data-ff-theme] #ffThemeLab .inner{background:var(--ffSurface2)!important;border-color:var(--ffAccent)!important}
+body[data-ff-theme] #ffThemeLab .choices button{color:white!important;box-shadow:none!important}
+body[data-ff-theme] #ffThemeLab .choices button[data-active="true"]{outline:3px solid white;outline-offset:2px}
+</style><script id="ffThemeFixV51">
+(function(){
+const extras=[['rose','🌸 Pink Diva','#c93b87'],['obsidian','🖤 Obsidian','#323b46']];
+function patch(){
+ const choices=document.querySelector('#ffThemeLab .choices');if(!choices)return;
+ if(!choices.dataset.ffExpanded){choices.dataset.ffExpanded='1';extras.forEach(([id,label,color])=>{const b=document.createElement('button');b.textContent=label;b.style.background=color;b.dataset.theme=id;b.onclick=()=>{document.body.dataset.ffTheme=id;localStorage.setItem('ffThemeV49',id);document.querySelector('#ffThemeLab')?.classList.remove('open');document.querySelectorAll('#ffThemeLab .choices button').forEach(x=>x.dataset.active=String(x.dataset.theme===id))};choices.appendChild(b)})}
+ const saved=localStorage.getItem('ffThemeV49')||'cyan';document.querySelectorAll('#ffThemeLab .choices button').forEach((b,i)=>{if(!b.dataset.theme)b.dataset.theme=['cyan','crimson','emerald','gold','violet','ice'][i]||'';b.dataset.active=String(b.dataset.theme===saved)});
+}
+const original=window.ffOpenThemeLab;
+window.ffOpenThemeLab=function(){original?.();patch()};
+const saved=localStorage.getItem('ffThemeV49')||'cyan';const allowed=['cyan','crimson','emerald','gold','violet','ice','rose','obsidian'];const apply=()=>{document.body.dataset.ffTheme=allowed.includes(saved)?saved:'cyan'};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
+document.addEventListener('click',e=>{const b=e.target.closest?.('#ffThemeLab .choices button');if(b){requestAnimationFrame(()=>{document.querySelectorAll('#ffThemeLab .choices button').forEach(x=>x.dataset.active=String(x.dataset.theme===document.body.dataset.ffTheme))})}});
+})();
 </script></body></html>
